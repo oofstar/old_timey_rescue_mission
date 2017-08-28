@@ -6,19 +6,21 @@ class QuestionsController < ApplicationController
   def show
     @question = Question.find(params[:id])
     @answers = Answer.where(question_id: params[:id])
+
+
   end
 
   def new
-    @question = Question.new
+    @question = Question.new()
   end
 
   def create
     @question = Question.new(question_params)
 
     if @question.save
-      redirect_to @question, notice: 'Question was successfully created.'
+      redirect_to @question
     else
-      @errors = "#{@question.errors.full_messages}"
+      @message = "#{@question.errors.full_messages}"
       render :new
     end
   end

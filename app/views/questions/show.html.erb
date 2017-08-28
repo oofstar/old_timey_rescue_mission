@@ -1,8 +1,11 @@
 <h1><%=@question.title%></h1>
-
+<%=@message%>
+<p>question: <%=@question.description%></p>
 answers:
 <ul>
   <% @answers.each do |answer| %>
     <li><%= answer.description %></li>
   <%end%>
-<ul>
+</ul>
+
+<%=link_to "Answer This Question", new_question_answer_path(@question) %>
