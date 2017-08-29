@@ -7,8 +7,6 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @answers = Answer.where(question_id: params[:id])
     @answer = Answer.new
-
-
   end
 
   def new
@@ -23,6 +21,22 @@ class QuestionsController < ApplicationController
     else
       redirect_to new_question_path, notice: "#{@question.errors.full_messages}"
 
+    end
+  end
+
+  def edit
+    @question = Question.find(params[:id])
+  end
+
+  def update
+
+    @question = Question.find(params[:id])
+    @question.update(question_params)
+
+    if @question.save
+      redirect_to @question, notice: "Question successfully edited"
+    else
+      redirect_to edit_question_path, notice: "#{@question.errors.full_messages}"
     end
   end
 

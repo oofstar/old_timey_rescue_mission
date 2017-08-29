@@ -1,5 +1,5 @@
 <h1><%=@question.title%></h1>
-<%=@message%>
+<%=link_to "Edit This Question", edit_question_path(@question) %>
 <p>question: <%=@question.description%></p>
 answers:
 <ul>
