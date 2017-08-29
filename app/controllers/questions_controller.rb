@@ -6,6 +6,7 @@ class QuestionsController < ApplicationController
   def show
     @question = Question.find(params[:id])
     @answers = Answer.where(question_id: params[:id])
+    @answer = Answer.new
 
 
   end
@@ -20,11 +21,12 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to @question
     else
-      @message = "#{@question.errors.full_messages}"
-      render :new
+      redirect_to new_question_path, notice: "#{@question.errors.full_messages}"
+
     end
   end
 
+  private
   def question_params
     params.require(:question).permit(:title, :description)
   end

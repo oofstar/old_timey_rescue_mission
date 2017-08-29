@@ -16,14 +16,13 @@ class AnswersController < ApplicationController
 
 
     if @answer.save
-      @message = "Answer successfully saved"
-      redirect_to question_path(@question)
+      redirect_to question_path(@question), notice: "Answer successfully saved."
     else
-      @message = "#{@answer.errors.full_messages}"
-      render :new
+      redirect_to question_path(@question), notice: "#{@answer.errors.full_messages}"
     end
   end
 
+private
   def answer_params
     params.require(:answer).permit(:description)
   end

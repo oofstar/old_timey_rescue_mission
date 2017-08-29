@@ -8,4 +8,11 @@ answers:
   <%end%>
 </ul>
 
-<%=link_to "Answer This Question", new_question_answer_path(@question) %>
+<div>
+<%= form_for [@question, @answer] do |f| %>
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+
+  <%= f.submit %>
+<% end %>
+</div>
