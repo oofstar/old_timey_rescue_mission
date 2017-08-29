@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  before_action :set_event, only: [:show, :edit, :update, :destroy]
+
   def index
     @questions = Question.all.sort_by { |q| q[:created_at] }
   end
@@ -20,7 +22,6 @@ class QuestionsController < ApplicationController
       redirect_to @question
     else
       redirect_to new_question_path, notice: "#{@question.errors.full_messages}"
-
     end
   end
 
@@ -40,7 +41,19 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def destroy
+    @question.answers.destroy_all
+    @question.destroy
+    redirect_to questions_path, notice: 'Event was successfully destroyed.'
+  end
+
+
   private
+  def set_event
+    @question = Question.find(params[:id])
+
+  end
+
   def question_params
     params.require(:question).permit(:title, :description)
   end
